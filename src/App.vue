@@ -18,8 +18,8 @@ import ProjectCard from './components/partials/ProjectCard.vue';
       getApi(){
         axios.get(store.apiUrl)
         .then(result =>{
-          console.log(result.data);
-          this.projects = result.data
+          // console.log(result.data);
+          this.projects = result.data.data
         })
         .catch(error =>{
           console.log(error.messsage);
