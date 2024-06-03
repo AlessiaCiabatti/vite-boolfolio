@@ -1,6 +1,6 @@
 <script>
-import axios from 'axios';
-import {store} from './data/store';
+// import axios from 'axios';
+// import {store} from './data/store';
 
 import Header from './components/Header.vue'
 
@@ -27,12 +27,15 @@ import Header from './components/Header.vue'
 
 <template>
   <div class="main-wrapper">
+
     <div class="container">
       <Header/>
     </div>
+
     <div class="container">
       <router-view></router-view>
     </div>
+
   </div>
 </template>
 
