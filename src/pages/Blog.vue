@@ -1,28 +1,43 @@
 <script>
 import axios from 'axios';
-import {store} from '../data/store';
+import { store } from '../data/store';
+import Paginator from '../components/partials/Paginator.vue'
 
-  export default {
-    name: 'Blog',
+export default {
+  name: 'Blog',
 
-    data(){
-      return{
-        projects: [],
-      }
-    },
+  components: {
+    Paginator,
+  },
 
-    methods:{
-    getApi(){
-      axios.get(store.apiUrl)
-      .then(result =>{
-        this.projects = result.data.data
-      })
-      .catch(error => {
-        console.log(error.message);
-      })
+  data() {
+    return {
+      projects: [],
+      paginatorData: {},
     }
+  },
+
+  methods: {
+    getApi(apiUrl) {
+      axios.get(apiUrl)
+        .then(result => {
+          this.projects = result.data.data
+          console.log(result.data)
+          // paginator
+          this.paginatorData.current_page = result.data.current_page;
+          this.paginatorData.links = result.data.links;
+          this.paginatorData.total = result.data.total;
+          console.log(this.paginatorData)
+        })
+        .catch(error => {
+          console.log(error.message);
+        })
+    }
+  },
+  mounted() {
+    this.getApi(store.apiUrl);
   }
-  }
+}
 
 
 
@@ -31,13 +46,30 @@ import {store} from '../data/store';
 <template>
   <div>
     <h1>I miei post</h1>
-    <ul>
-      <li v-for="project in projects" :key="project.id">{{ project.id }} - {{ project.title }}</li>
-    </ul>
+    <div>
+      <ul>
+        <li v-for="project in projects" :key="project.id">{{ project.id }} - {{ project.title }}</li>
+      </ul>
 
+      <div>
+        <h4>Tags:</h4>
+        <div>
+          <span class="me-2 badge text-bg-primary">tag</span>
+          <span class="me-2 badge text-bg-primary">tag</span>
+        </div>
+      </div>
+
+      <div>
+        <h4>Technology:</h4>
+        <div>
+          <span class="me-2 badge text-bg-primary">technology</span>
+          <span class="me-2 badge text-bg-primary">technology</span>
+        </div>
+      </div>
+
+      <Paginator :data="paginatorData" @callApi="getApi" />
+    </div>
   </div>
 </template>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
