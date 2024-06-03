@@ -2,59 +2,37 @@
 import axios from 'axios';
 import {store} from './data/store';
 
-import ProjectCard from './components/partials/ProjectCard.vue';
+import Header from './components/Header.vue'
 
   export default {
     components: {
-    ProjectCard
+    Header
   },
     data(){
       return{
-        projects: [],
+        
       }
     },
 
     methods:{
-      getApi(){
-        axios.get(store.apiUrl)
-        .then(result =>{
-          // console.log(result.data);
-          this.projects = result.data.data
-        })
-        .catch(error =>{
-          console.log(error.messsage);
-        })
-      }
+     
     },
 
     mounted(){
-      this.getApi();
+
     }
   }
 </script>
 
 
 <template>
-  <div>
-
-    
-    <!-- <ul>
-      <li v-for="project in projects" :key="project.id">{{ project.id }} - {{ project.title }}</li>
-    </ul> -->
-
+  <div class="main-wrapper">
     <div class="container">
-      <h1>Projects List</h1>
-      
-      <div class="row">
-        <div class="col-md-4 mt-5" v-for="project in projects" :key="project.id">
-          <ProjectCard :project="project" />
-        </div>
-      </div>
+      <Header/>
     </div>
-  </div>
-
-  <div>
-
+    <div class="container">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
