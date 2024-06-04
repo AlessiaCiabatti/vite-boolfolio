@@ -40,7 +40,7 @@ export default {
               // this.types = result.data
               this.myTypes = result.data
               console.log(this.myTypes)
-
+              break;
             default:
               this.projects = result.data.data
               console.log(this.projects);
@@ -85,7 +85,7 @@ export default {
       <div>
         <h4>Types:</h4>
         <div>
-          <span v-for="myType in myTypes" :key="myType.id" class="me-2 badge text-bg-primary">{{ myType.title
+          <span v-for="myType in myTypes" :key="myType.id" class="me-2 badge text-bg-primary">{{ myType.name
             }}</span>
         </div>
       </div>
@@ -94,7 +94,7 @@ export default {
         <h4>Technology:</h4>
         <div>
           <span v-for="technology in technologies" :key="technology.id" class="me-2 badge text-bg-primary">{{
-      technology.title }}</span>
+      technology.name }}</span>
         </div>
       </div>
 
