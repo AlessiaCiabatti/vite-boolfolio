@@ -1,13 +1,15 @@
 <script>
 import axios from 'axios';
 import { store } from '../data/store';
-import Paginator from '../components/partials/Paginator.vue'
+import Paginator from '../components/partials/Paginator.vue';
+import Loader from '../components/partials/Loader.vue';
 
 export default {
   name: 'Blog',
 
   components: {
     Paginator,
+    Loader,
   },
 
   data() {
@@ -16,15 +18,18 @@ export default {
       technologies: [],
       myTypes: [],
       paginatorData: {},
+      loading: true,
     }
   },
 
   methods: {
     getApi(apiUrl, type = '') {
-      // perchè non stampa technologies e types? e perchè se passo il parametro type mi da errore?
-      axios.get(apiUrl)
+      this.loading = true;
+      // perchè se passo il parametro type mi da errore? e perchè non stampa types e technologies
+      axios.get(apiUrl + type)
         .then(result => {
-
+          this.loading = false;
+          // switch case: posso mettere tante condizioni come se fosse un if
           switch (type) {
             case 'technologies':
               this.technologies = result.data
@@ -38,6 +43,7 @@ export default {
 
             default:
               this.projects = result.data.data
+              console.log(this.projects);
               // paginator
               this.paginatorData.current_page = result.data.current_page;
               this.paginatorData.links = result.data.links;
@@ -45,19 +51,21 @@ export default {
               break;
           }
 
-          console.log(result.data)
+          // console.log(result.data)
 
-          console.log(this.paginatorData)
+          // console.log(this.paginatorData)
         })
         .catch(error => {
+          this.loading = false;
           console.log(error.message, 'projects');
         })
     }
   },
   mounted() {
     this.getApi(store.apiUrl, 'projects');
-    this.getApi(store.apiUrl, 'types');
     this.getApi(store.apiUrl, 'technologies');
+    this.getApi(store.apiUrl, 'types');
+
   }
 }
 
@@ -68,7 +76,8 @@ export default {
 <template>
   <div>
     <h1>I miei post</h1>
-    <div>
+
+    <div class="content" v-if="!loading">
       <ul>
         <li v-for="project in projects" :key="project.id">{{ project.id }} - {{ project.title }}</li>
       </ul>
@@ -76,19 +85,24 @@ export default {
       <div>
         <h4>Types:</h4>
         <div>
-          <span v-for="myType in myTypes" :key="`x-${myType.id}`" class="me-2 badge text-bg-primary">{{ myType.title }}</span>
+          <span v-for="myType in myTypes" :key="myType.id" class="me-2 badge text-bg-primary">{{ myType.title
+            }}</span>
         </div>
       </div>
 
       <div>
         <h4>Technology:</h4>
         <div>
-          <span v-for="Technology in technologies" :key="`x-${technologies.id}`" class="me-2 badge text-bg-primary">{{ technology.title }}</span>
+          <span v-for="technology in technologies" :key="technology.id" class="me-2 badge text-bg-primary">{{
+      technology.title }}</span>
         </div>
       </div>
 
-      <Paginator :data="paginatorData" @callApi="getApi" />
     </div>
+    <Loader v-else />
+
+    <Paginator v-if="!loading" :data="paginatorData" @callApi="getApi" />
+
   </div>
 </template>
 
