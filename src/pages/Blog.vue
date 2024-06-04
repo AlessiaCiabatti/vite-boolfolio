@@ -29,6 +29,16 @@ export default {
       axios.get(apiUrl + type)
         .then(result => {
           this.loading = false;
+
+          // const effectiveType = type === '' ? 'projects' : type;
+          // this[effectiveType] = result.data;
+          // if (effectiveType = 'projects') {
+          //   this[effectiveType] = result.data.data;
+          //   this.paginatorData.current_page = result.data.current_page;
+          //   this.paginatorData.links = result.data.links;
+          //   this.paginatorData.total = result.data.total;
+          // }
+
           // switch case: posso mettere tante condizioni come se fosse un if
           switch (type) {
             case 'technologies':
@@ -51,9 +61,7 @@ export default {
               break;
           }
 
-          // console.log(result.data)
 
-          // console.log(this.paginatorData)
         })
         .catch(error => {
           this.loading = false;
@@ -79,7 +87,10 @@ export default {
 
     <div class="content" v-if="!loading">
       <ul>
-        <li v-for="project in projects" :key="project.id">{{ project.id }} - {{ project.title }}</li>
+        <li v-for="project in projects" :key="project.id">
+          {{ project.id }} -
+          <router-link :to="{name: 'postDetail', params:{slug: project.slug}}">{{ project.title }}</router-link>
+        </li>
       </ul>
 
       <div>
