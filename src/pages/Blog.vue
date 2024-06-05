@@ -96,16 +96,16 @@ export default {
       <div>
         <h4>Types:</h4>
         <div>
-          <span v-for="myType in myTypes" :key="myType.id" class="me-2 badge text-bg-primary">{{ myType.name
-            }}</span>
+          <router-link :to="{name: 'projectType', params:{slug: myType.slug}}" v-for="myType in myTypes" :key="myType.id" class="me-2 badge text-bg-primary">{{ myType.name
+            }}</router-link>
         </div>
       </div>
 
       <div>
         <h4>Technology:</h4>
         <div>
-          <span v-for="technology in technologies" :key="technology.id" class="me-2 badge text-bg-primary">{{
-      technology.name }}</span>
+          <router-link :to="{name: 'projectTechnology', params:{slug: technology.slug}}" v-for="technology in technologies" :key="technology.id" class="me-2 badge text-bg-primary">{{
+      technology.name }}</router-link>
         </div>
       </div>
 

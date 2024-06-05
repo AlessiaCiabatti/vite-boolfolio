@@ -5,6 +5,8 @@ import Blog from './pages/Blog.vue'
 import Contacts from './pages/Contacts.vue'
 import About from './pages/About.vue'
 import PostDetail from './pages/PostDetail.vue'
+import ProjectTechnology from './pages/ProjectTechnology.vue'
+import ProjectType from './pages/ProjectType.vue'
 import Error404 from './pages/Error404.vue'
 
 const router = createRouter({
@@ -34,6 +36,16 @@ const router = createRouter({
       path: '/dettaglio-post/:slug',
       name: 'postDetail',
       component: PostDetail
+    },
+    {
+      path: '/project-technology/:slug',
+      name: 'projectTechnology',
+      component: ProjectTechnology
+    },
+    {
+      path: '/project-type/:slug',
+      name: 'projectType',
+      component: ProjectType
     },
     {
       path: '/:pathMatch(.*)*',
