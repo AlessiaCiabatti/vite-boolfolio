@@ -43,18 +43,38 @@ export default {
       return 'Technologies: ' + this.project.technology.name
     },
     myTypes(){
-       if(!this.project.types){
+       if(this.project.types.lenght === 0){
         return 'no types'
       }
-      let typesString = '';
-      this.project.types.forEach(type =>{
-        console.log(type.name);
-        typesString += type.name + ' '
-      })
-      return 'Type: ' + typesString;
+      // let typesString = '';
+      // this.project.types.forEach(type =>{
+      //   console.log(type.name);
+      //   typesString += type.name + ' '
+      // })
+      return 'Type: ' + this.project.types.map(typee => typee.name).join('-');
       // return 'Types: ' + this.project.myTypes.name
     },
+
+    formattedDate(){
+    const d = new Date(this.project.updated_at)
+    console.log(d)
+
+    console.log(navigator.language);
+
+  let options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+    console.log(new Intl.DateTimeFormat(navigator.language, options).format(d))
+
+    return new Intl.DateTimeFormat(navigator.language, options).format(d);
+    // return d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear();
   },
+  },
+
+
 
   mounted() {
     this.getApi()
@@ -73,6 +93,7 @@ export default {
       <img :src="project.image">
       <p>{{ project.image_original_name }}</p>
       <p>{{ project.text }}</p>
+      <p>{{formattedDate}}</p>
     </div>
   </div>
 </template>
