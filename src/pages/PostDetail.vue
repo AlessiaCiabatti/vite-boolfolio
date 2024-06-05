@@ -35,6 +35,27 @@ export default {
     }
   },
 
+  computed:{
+    technology(){
+      if(!this.project.technology){
+        return 'no technology'
+      }
+      return 'Technologies: ' + this.project.technology.name
+    },
+    myTypes(){
+       if(!this.project.types){
+        return 'no types'
+      }
+      let typesString = '';
+      this.project.types.forEach(type =>{
+        console.log(type.name);
+        typesString += type.name + ' '
+      })
+      return 'Type: ' + typesString;
+      // return 'Types: ' + this.project.myTypes.name
+    },
+  },
+
   mounted() {
     this.getApi()
   }
@@ -46,7 +67,9 @@ export default {
     <Loader v-if="loading" />
     <div v-else class="project">
       <h1>{{ project.title }}</h1>
-      <p>by: {{ project.user?.name }}</p>
+      <!-- <p>by: {{ project.user?.name }}</p> -->
+      <p>{{ technology }}</p>
+      <p>{{ myTypes }}</p>
       <img :src="project.image">
       <p>{{ project.image_original_name }}</p>
       <p>{{ project.text }}</p>
