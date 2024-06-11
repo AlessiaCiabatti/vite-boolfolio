@@ -25,7 +25,7 @@ export default {
           <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, maiores assumenda, rem facilis quaerat illum cum ut aliquam cupiditate alias temporibus, saepe neque maxime nobis voluptatem veniam consequuntur sint id?</p>
 
         <div class="text-box">
-          <a href="http://localhost:5174/contatti" class="btn btn-white btn-animate">click me</a>
+          <a href="http://localhost:5173/contatti" class="btn btn-white btn-animate">click me</a>
         </div>
 
       </div>
