@@ -40,5 +40,10 @@ import Header from './components/Header.vue'
 </template>
 
 <style lang="scss" scoped>
+@use './assets/scss/main.scss';
 
+.main-wrapper{
+  width: 70%;
+  margin: 0 auto;
+}
 </style>

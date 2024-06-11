@@ -82,39 +82,98 @@ export default {
 </script>
 
 <template>
-  <div>
-    <h1>I miei post</h1>
+  <div class="container">
+    <h1 class="mb-5">I miei progetti</h1>
 
-    <div class="content" v-if="!loading">
-      <ul>
-        <li v-for="project in projects" :key="project.id">
-          {{ project.id }} -
-          <router-link :to="{name: 'postDetail', params:{slug: project.slug}}">{{ project.title }}</router-link>
-        </li>
-      </ul>
-
-      <div>
-        <h4>Types:</h4>
-        <div>
-          <router-link :to="{name: 'projectType', params:{slug: myType.slug}}" v-for="myType in myTypes" :key="myType.id" class="me-2 badge text-bg-primary">{{ myType.name
-            }}</router-link>
-        </div>
+    <div class="content d-flex" v-if="!loading">
+      <div class="prova">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item" v-for="project in projects" :key="project.id">{{ project.id }} -
+            <router-link class="list" :to="{ name: 'postDetail', params: { slug: project.slug } }">{{ project.title
+              }}</router-link>
+          </li>
+        </ul>
       </div>
 
-      <div>
-        <h4>Technology:</h4>
-        <div>
-          <router-link :to="{name: 'projectTechnology', params:{slug: technology.slug}}" v-for="technology in technologies" :key="technology.id" class="me-2 badge text-bg-primary">{{
-      technology.name }}</router-link>
+      <div class="badge-list flex-column mt-4">
+
+        <div class="badge-types mb-5">
+          <h5>Types:</h5>
+          <div>
+            <router-link :to="{ name: 'projectType', params: { slug: myType.slug } }" v-for="myType in myTypes"
+              :key="myType.id" class="me-2 badge">{{ myType.name
+              }}</router-link>
+          </div>
         </div>
+
+        <div class="badge-tech">
+          <h5>Technologie:</h5>
+          <div>
+            <router-link :to="{ name: 'projectTechnology', params: { slug: technology.slug } }"
+              v-for="technology in technologies" :key="technology.id" class="me-2 badge">{{
+      technology.name }}</router-link>
+          </div>
+        </div>
+
       </div>
 
     </div>
     <Loader v-else />
 
-    <Paginator v-if="!loading" :data="paginatorData" @callApi="getApi" />
+    <div class="d-flex justify-content-center">
+      <Paginator v-if="!loading" :data="paginatorData" @callApi="getApi" />
+    </div>
 
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+h1 {
+  margin-top: 100px;
+}
+
+.content {
+  ul {
+    .list {
+      text-decoration: none;
+      color: black;
+    }
+  }
+
+  .prova {
+    background-color: rgb(255, 255, 255);
+    padding: 30px;
+    margin-bottom: 100px;
+    border-radius: 20px;
+    width: 500px;
+    box-shadow: 2px 2px 10px rgba(221, 221, 221, 0.767);
+  }
+
+  .badge-list {
+    margin-left: 170px;
+
+    .badge {
+      text-decoration: none;
+      padding: 7px;
+      margin-top: 20px;
+      background-color: #8c74e5;
+    }
+
+    .badge-types {
+      line-height: 35px;
+    }
+
+    .badge-types,
+    .badge-tech {
+      background-color: rgb(255, 255, 255);
+      padding: 50px;
+      border-radius: 20px;
+      width: 500px;
+      box-shadow: 2px 2px 10px rgba(221, 221, 221, 0.767);
+    }
+  }
+
+}
+
+
+</style>

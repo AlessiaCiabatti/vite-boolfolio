@@ -1,9 +1,2 @@
-*{
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
+@use './partials/general';
 
-body{
-  background-color: red;
-}
